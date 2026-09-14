@@ -4,7 +4,7 @@ Course: F.CSA313 — Software Quality Assurance and Testing (2026)
 
 Student: Amarmend Tuvshinbayr (GitHub: Nonsense727)
 
-Student code: *fill in your code here*
+Student code: B232270036
 
 ## 1. Goal
 
