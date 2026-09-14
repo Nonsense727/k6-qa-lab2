@@ -45,6 +45,7 @@ k6 v2.2.0 (commit/00a9a1b7f5, go1.26.5, linux/amd64)
 | `threshold-local-pass.js` | Локал сервер рүү хийсэн найдвартай, тогтвортой PASS SLO шалгалт (`p(95)<100ms`) |
 | `server.js` | Локал Node.js HTTP сервер (`/` энгийн, `/slow` 100ms сааталтай) |
 | `local-test.js` | Локал сервер рүү чиглэсэн ачааллын тест |
+| `ai-scenario.js` | AI туслахын санал болгосон scenario бүхий тест (`group()`, хайлт, нүүр хуудас) |
 
 > **Анхаарах зүйл:** k6 дээр `options` дотор `stages` болон `vus/duration`-ийг хамт бичвэл `stages` нь давамгайлж `vus/duration`-ийг үл тоодог тул тэдгээрийг файлуудад тусад нь салгаж зохион байгуулсан.
 
@@ -69,6 +70,9 @@ k6 run threshold-fail.js | tee results/threshold-fail.txt
 # 4. Локал серверийг асааж найдвартай PASS тест хийх
 node server.js &
 k6 run threshold-local-pass.js | tee results/threshold-local-pass.txt
+
+# 5. AI туслахын санал болгосон scenario тестийг ажиллуулах
+k6 run ai-scenario.js | tee results/run-ai-scenario.txt
 ```
 
 ---
@@ -107,7 +111,7 @@ k6 run threshold-local-pass.js | tee results/threshold-local-pass.txt
 
 ## 9. Хавсаргасан файлууд
 
-- **k6 тестийн скриптүүд:** `script.js`, `stages.js`, `threshold-pass.js`, `threshold-fail.js`, `threshold-local-pass.js`, `local-test.js`, `server.js`
+- **k6 тестийн скриптүүд:** `script.js`, `stages.js`, `threshold-pass.js`, `threshold-fail.js`, `threshold-local-pass.js`, `ai-scenario.js`, `local-test.js`, `server.js`
 - **Бүтэн текст гаралтууд:**
   - `results/run-05vu.txt` (5 VU түвшний гаралт)
   - `results/run-30vu.txt` (30 VU түвшний гаралт)
@@ -117,4 +121,11 @@ k6 run threshold-local-pass.js | tee results/threshold-local-pass.txt
   - `results/threshold-fail.txt` (FAIL чанарын босго гаралт)
   - `results/threshold-pass.txt` (Гадаад сервер рүү хийсэн SLO туршилт)
   - `results/run-local.txt` (Локал серверийн хэмжилт)
+  - `results/run-ai-scenario.txt` (AI scenario туршилтын гаралт)
 - **Дэлгэцийн зургууд:** `screenshots/` хавтсанд k6 summary гаралтын зурган файлууд хадгалагдсан.
+
+---
+
+## 10. Нэмэлт даалгавар: AI туслахын k6 скриптийн шинжилгээ
+
+AI туслахаар (ChatGPT/Claude) хэрэглэгчийн нэвтрэх болон хайлт хийх зан төлөвийг дуурайсан k6 скрипт үүсгүүлж туршив (`ai-scenario.js`). AI анх санал болгохдоо бодит бус эсвэл зөвшөөрөлгүй гадаад хаяг руу POST хүсэлт илгээх кодоор үүсгэсэн тул ёс зүйн заалтын дагуу зөвхөн зөвшөөрөгдсөн `https://test.k6.io` домэйн болон GET хүсэлт рүү гараар засаж ажиллуулах шаардлагатай болсон. AI-ийн санал болгосон `group()` бүтэц болон шатлан өсгөх `stages` нь хэрэглэгчийн бодит алхмуудыг логик дараалалд оруулахад тун ойлгомжтой, сайн шийдэл байв. Гэвч AI нь манай байршлын сүлжээний бодит хоцролтыг (TLS handshake 100-200ms) мэдэхгүй тул `p(95) < 200ms` гэсэн хэт өөдрөг, бодит бус threshold санал болгосныг baseline хэмжилтдээ тулгуурлан засав. Миний өмнө бичсэн энгийн скрипттэй харьцуулахад AI скрипт нь `group()` ашигласнаараа алхам бүрийг салгаж харахад давуу талтай байсан. Харин бай URL-ын ёс зүйн аюулгүй байдал болон хэмжилтийн бодит baseline дээр үндэслэсэн SLO босгыг зөв сонгох тал дээр инженер хүний хяналт заавал дутагдаж байлаа.
