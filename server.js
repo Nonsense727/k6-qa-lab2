@@ -1,6 +1,6 @@
 import http from 'node:http';
 
-const PORT = 3000;
+const PORT = 3101;
 
 const server = http.createServer((req, res) => {
   if (req.url === '/slow') {
