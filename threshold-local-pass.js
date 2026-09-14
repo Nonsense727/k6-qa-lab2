@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 
-// Stable PASS against local server (no internet jitter).
+// Локал сервер рүү хийсэн тогтвортой PASS шалгалт (интернэтийн савалгаагүй).
 export const options = {
   vus: 5,
   duration: '30s',

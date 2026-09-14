@@ -1,8 +1,8 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 
-// SLO derived from own baseline: baseline p95 was 263.48ms at 5 VU,
-// SLO = baseline x 1.5 rounded up -> p(95) < 400ms.
+// Өөрийн baseline хэмжилтэд үндэслэсэн SLO: 5 VU үеийн baseline p95 нь 263.48ms байсан,
+// SLO = baseline x 1.5 (дээш бүхэлчилсэн) -> p(95) < 400ms.
 export const options = {
   vus: 5,
   duration: '30s',

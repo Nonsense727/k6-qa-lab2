@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 
-// Intentionally strict threshold to demonstrate FAIL (quality gate).
+// FAIL гаралтыг үзүүлэх зорилгоор санаатайгаар хатуу тавьсан threshold (quality gate).
 export const options = {
   vus: 5,
   duration: '30s',

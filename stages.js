@@ -3,10 +3,10 @@ import { sleep, check } from 'k6';
 
 export const options = {
   stages: [
-    { duration: '30s', target: 5 },
-    { duration: '1m', target: 30 },
-    { duration: '30s', target: 100 },
-    { duration: '30s', target: 0 },
+    { duration: '30s', target: 5 },   // халаалт
+    { duration: '1m', target: 30 },    // өсгөлт
+    { duration: '30s', target: 100 },  // оргил ачаалал
+    { duration: '30s', target: 0 },    // буулт
   ],
 };
 
